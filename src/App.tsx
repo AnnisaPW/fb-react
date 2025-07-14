@@ -8,7 +8,7 @@ export function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ProductListView />}></Route>
-          <Route path="/product-detail" element={<ProductDetailView />}></Route>
+          <Route path="/product/:id" element={<ProductDetailView />}></Route>
         </Routes>
       </BrowserRouter>
     </>

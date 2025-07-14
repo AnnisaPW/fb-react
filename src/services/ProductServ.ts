@@ -1,15 +1,15 @@
-import { getDoc, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { getDoc, doc, setDoc, deleteDoc, updateDoc, getDocs, collection, query } from "firebase/firestore";
 import type { Product } from "../types/Product";
 import { db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 
 const coll = "products"
 
-export const getProductById = async (): Promise<Product|null>=>{
+export const getProductById = async (productId: string): Promise<Product|null>=>{
     try {
-        const productDoc = await getDoc(doc(db, coll, "7rnGJE8w5F9qC22pUt5m"));
+        const productDoc = await getDoc(doc(db, coll, productId));
         if (productDoc.exists()) {
-            return {id: productDoc.id, ...productDoc.data()} as Product
+            return { ...productDoc.data()} as Product
             
             
         }else{
@@ -61,5 +61,17 @@ export const updateProduct = async (): Promise<void> =>{
         console.log("Error [updateProduct]", error)
         throw error
         
+    }
+}
+
+export const getProducts = async (): Promise<Product[]> => {
+    try {
+        const q =query(collection(db, coll)) 
+        const querySnapshot =await getDocs(q)
+        const data = querySnapshot.docs.map(doc=> ({...doc.data()})as Product)
+        return data
+    } catch (error) {
+        console.log("Error [getProducts]", error)
+        throw error
     }
 }

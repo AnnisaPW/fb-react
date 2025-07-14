@@ -1,9 +1,11 @@
-import { ProductButtons } from "../components/ProductButtons";
+import { ProductList } from "../components/ProductList";
 
 export function ProductListView() {
   return (
     <>
-      <ProductButtons></ProductButtons>
+      <h1>Product List</h1>
+
+      <ProductList />
     </>
   );
 }
