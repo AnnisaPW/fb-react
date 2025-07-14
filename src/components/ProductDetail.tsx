@@ -13,6 +13,7 @@ export const ProductDetail: React.FC = () => {
     setInputName,
     setInputPrice,
     handleUpdateProduct,
+    handleDeleteProduct,
   } = ProductCtrl();
   useEffect(() => {
     if (id) loadProductDetail(id!);
@@ -71,6 +72,16 @@ export const ProductDetail: React.FC = () => {
       )}
       <button className="btn btn-primary" onClick={() => handleUpdateProduct()}>
         Update Product
+      </button>
+      <br />
+      <br />
+      <button
+        className="btn btn-outline-danger"
+        onClick={() => {
+          handleDeleteProduct();
+        }}
+      >
+        <i className="bi bi-trash">Delete Product</i>
       </button>
     </>
   );

@@ -12,6 +12,7 @@ export const ProductList: React.FC = () => {
     inputPrice,
     setInputName,
     setInputPrice,
+    handleCreateProduct,
   } = ProductCtrl();
   useEffect(() => {
     loadProducts();
@@ -37,12 +38,19 @@ export const ProductList: React.FC = () => {
         />
         <label htmlFor="product-price">Price</label>
       </div>
-      <button className="btn btn-primary">Create Product</button>
+      <button className="btn btn-primary" onClick={() => handleCreateProduct()}>
+        Create Product
+      </button>
       <br />
       <br />
       <ul className="list-group">
         {products.map((p: Product) => (
           <li
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
             key={p.id}
             className={`list-group-item ${selectedId == p.id && "active"}`}
             onClick={() => getProductDetail(p.id!)}

@@ -1,7 +1,7 @@
 import { getDoc, doc, setDoc, deleteDoc, updateDoc, getDocs, collection, query } from "firebase/firestore";
 import type { Product } from "../types/Product";
 import { db } from "../firebase";
-import { v4 as uuidv4 } from "uuid";
+
 
 const coll = "products"
 
@@ -23,12 +23,10 @@ export const getProductById = async (productId: string): Promise<Product|null>=>
     }
 }
 
-export const createNewProduct = async (): Promise<void> =>{
+export const createNewProduct = async (newProduct: Product): Promise<void> =>{
     try {
-        const productId = uuidv4()
-        const dateTimeNow = new Date().toISOString()
-        const newProduct: Product = {id:productId, name:"product 222", price:2000, createdAt: dateTimeNow}
-        const productRef = doc(db, coll, productId)
+
+        const productRef = doc(db, coll, newProduct.id!)
         await setDoc(productRef, newProduct)
     } catch (error) {
         console.log("Error [createNewProduct]", error)
@@ -36,9 +34,8 @@ export const createNewProduct = async (): Promise<void> =>{
     }
 }
 
-export const deleteProduct = async (): Promise<void> =>{
+export const deleteProduct = async (productId: string): Promise<void> =>{
     try {
-        const productId = "e37be14a-dea4-4213-b685-6d3ff4503bf7"
         const productRef = doc(db, coll, productId)
         await deleteDoc(productRef)
 
