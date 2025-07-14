@@ -5,22 +5,73 @@ import { useEffect } from "react";
 
 export const ProductDetail: React.FC = () => {
   const { id } = useParams();
-  const { loadProductDetail, productDetail } = ProductCtrl();
+  const {
+    loadProductDetail,
+    productDetail,
+    inputName,
+    inputPrice,
+    setInputName,
+    setInputPrice,
+    handleUpdateProduct,
+  } = ProductCtrl();
   useEffect(() => {
-    if (id) {
-      loadProductDetail(id);
-    }
-  }, [id, loadProductDetail]);
+    if (id) loadProductDetail(id!);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   if (!productDetail) return <p>Loading...</p>;
   return (
     <>
-      <p>{productDetail?.id}</p>
-      <p>{productDetail?.name}</p>
-      <p>{productDetail?.price}</p>
-
-      <p>{productDetail?.createdAt}</p>
-      <p>{productDetail?.updatedAt && productDetail?.updatedAt}</p>
+      <div className="form-floating mb-3">
+        <input
+          type="text"
+          className="form-control"
+          value={productDetail?.id}
+          readOnly
+        />
+        <label htmlFor="product-id">ID</label>
+      </div>
+      <div className="form-floating mb-3">
+        <input
+          type="text"
+          className="form-control"
+          value={inputName}
+          onChange={(i) => setInputName(i.target.value)}
+        />
+        <label htmlFor="product-name">Name</label>
+      </div>
+      <div className="form-floating mb-3">
+        <input
+          type="text"
+          className="form-control"
+          value={inputPrice}
+          onChange={(i) => setInputPrice(i.target.value)}
+        />
+        <label htmlFor="product-price">Price</label>
+      </div>
+      <div className="form-floating mb-3">
+        <input
+          type="text"
+          className="form-control"
+          value={productDetail?.createdAt}
+          readOnly
+        />
+        <label htmlFor="product-createdAt">Created At</label>
+      </div>
+      {productDetail?.updatedAt && (
+        <div className="form-floating mb-3">
+          <input
+            type="text"
+            className="form-control"
+            value={productDetail?.updatedAt}
+            readOnly
+          />
+          <label htmlFor="product-updatedAt">Updated At</label>
+        </div>
+      )}
+      <button className="btn btn-primary" onClick={() => handleUpdateProduct()}>
+        Update Product
+      </button>
     </>
   );
 };

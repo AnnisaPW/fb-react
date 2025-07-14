@@ -49,11 +49,11 @@ export const deleteProduct = async (): Promise<void> =>{
     }
 }
 
-export const updateProduct = async (): Promise<void> =>{
+export const updateProduct = async (product: Product): Promise<void> =>{
     try {
-        const productId = "77aaaf11-e8dd-48c3-9be0-54bec7222f64"
+        const productId = product.id!
         const dateTimeNow = new Date().toISOString()
-        const productUpdate: Partial<Product> = {name: "Product 88", price: 8888, updatedAt: dateTimeNow}
+        const productUpdate: Partial<Product> = {name: product.name, price: product.price, updatedAt: dateTimeNow}
         const productRef = doc(db, coll, productId)
         await updateDoc(productRef, productUpdate)
 
