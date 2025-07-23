@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ProductList } from "../components/ProductList";
 import { LogoutForm } from "../components/LogoutButton";
+import { AuthStatus } from "../components/UseStatus";
 
 export function ProductListView() {
   return (
@@ -19,6 +20,7 @@ export function ProductListView() {
             </Link>
             <LogoutForm></LogoutForm>
           </div>
+          <AuthStatus></AuthStatus>
         </nav>
 
         <div className="container mt-4">
